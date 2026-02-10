@@ -13,11 +13,20 @@
 - Small functions that do one thing; if a function needs a comment explaining "what", it's too complex
 - Handle errors explicitly — no bare `except:`, no silent failures
 
+## Execution Strategy
+- For multi-step plans, implement in small batches (2-4 steps per batch)
+- In plan mode, the plan header must clearly state the current execution batch (e.g., "Current batch: Steps 1.1-1.3") and where we are in the overall plan
+- After completing a batch, stop and get explicit approval before proceeding to the next batch
+- Each batch should be a coherent, testable unit of work — never leave the codebase in a broken state between batches
+
 ## Git Workflow
+- Always work on a feature branch — never commit directly to main
 - Branch naming: `feature/`, `fix/`, `chore/` prefixes
 - Commit messages: imperative mood, concise first line (<72 chars), body if non-obvious
 - Always run tests and linting before committing
 - One logical change per commit; squash WIP commits before PR
+- Break work into meaningful commits that others can review (one commit per logical step/feature, not one giant commit)
+- Push the branch and cut a PR when a batch is complete so the team can track progress
 
 ## Testing & Verification
 - After making changes, always verify by running the project's test command
